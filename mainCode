@@ -1,0 +1,79 @@
+import time
+import random
+
+class Hero:
+    def __init__(self, lifes, intellect, strong, agility, name):
+        self.lifes = lifes
+        self.intellect = intellect
+        self.strong = strong
+        self.agility = agility
+        self.name = name
+    def weapon(self):
+        if self.strong > self.intellect and self.strong > self.agility:
+            weapon = "sword"
+        elif self.intellect > self.strong and self.intellect > self.agility:
+            weapon = "magic staff"
+        else:
+            weapon = "longbow"
+        return weapon
+    def role(self):
+        if self.strong > self.intellect and self.strong > self.agility:
+            role = "swordman"
+        elif self.intellect > self.strong and self.intellect > self.agility:
+            role = "wizard"
+        else:
+            role = "archer"
+        return role
+    def armor(weapon):
+        if weapon == "sword":
+            armor = 10
+        elif weapon == "magic stuff":
+            armor = 5
+        else:
+            armor = 4
+        return armor
+    def damage (self, weapon):
+        if weapon == "sword":
+            damage = random.randint(1,5)*self.strong
+        elif weapon == "magic stuff":
+            damage = random.randint(3,5)*self.intellect
+        else:
+            damage = random.randint(1,8)*self.agility
+        return damage
+
+MyHero = Hero(300, random.randint(1,10),
+              random.randint(1,10), random.randint(1,10), "You")
+Enemy = Hero(350, random.randint(1,10),
+              random.randint(1,10), random.randint(1,10), "Enemy")
+print("Да начнётся бой!!!")
+
+print("Ваше имя", MyHero.name, "Ваша спецификация",
+      MyHero.role(), "Жизни", MyHero.lifes)
+print("Броня", MyHero.armor(), "Оружие",
+      MyHero.weapon(), "Урон", MyHero.damage(MyHero.weapon()))
+
+print("Имя врага", Enemy.name, "Его спецификация",
+      Enemy.role(), "Жизни", Enemy.lifes)
+      
+print("Броня", Enemy.armor(), "Оружие",
+      Enemy.weapon(), "Урон", Enemy.damage(Enemy))
+
+print(MyHero.name, "vs", Enemy.name)
+while MyHero.lifes >= 0 and Enemy.lifes >= 0:
+    MyHero.lifes -= Enemy.damage(Enemy)
+    Enemy.lifes -= MyHero.damage(MyHero)
+    print(MyHero.name, "hit", Enemy.name, "damage", MyHero.damage(MyHero.weapon()))
+    print("U vraga", Enemy.lifes,"lifes")
+    print(Enemy.name, "hit", MyHero.name,"damage", Enemy.damage(Enemy.weapon()))
+    print("U nas", MyHero.lifes, "lifes")
+    time.sleep(2)
+if Enemy.lifes <= 0:
+    print("Win!!!")
+elif MyHero.lifes <= 0:
+    print("Lose. Vo vsem vinovat Ded Moroz")
+#print(MyHero.name)
+#print(MyHero.role())
+#print(MyHero.weapon())
+#print(MyHero.armor())
+#print(MyHero.damage(MyHero.weapon))
+
